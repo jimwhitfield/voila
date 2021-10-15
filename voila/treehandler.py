@@ -61,6 +61,10 @@ class VoilaTreeHandler(JupyterHandler):
             def allowed_content(content):
                 if content['type'] in ['directory', 'notebook']:
                     return True
+                if content['mimetype'] in ['image/gif','image/jpeg','image/png','application/pdf']: 
+                    return True
+                if content['name'][0] == '.':  # Do not serve hidden files
+                    return False
                 __, ext = os.path.splitext(content.get('path'))
                 return ext in self.allowed_extensions
 
